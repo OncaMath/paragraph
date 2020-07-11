@@ -61,6 +61,9 @@ class Paragraph {
     this._preserveBlank = config.preserveBlank !== undefined ? config.preserveBlank : false;
 
     this.data = data;
+    if (typeof data !== "undefined") {
+      this.id == data.id;
+    }
   }
 
   /**
@@ -144,7 +147,16 @@ class Paragraph {
    * @public
    */
   save(toolsContent) {
+    let id;
+
+    if (typeof this.data.id !== "undefined") {
+        id = this.data.id;
+    } else {
+        id = Date.now() + Math.floor(Math.random() * 1000);
+        this.data.id = id;
+    }
     return {
+      id: id,
       text: toolsContent.innerHTML
     };
   }
